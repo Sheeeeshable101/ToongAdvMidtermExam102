@@ -1,16 +1,34 @@
-# CD Library App UI Redesign - CD Product Card Style + Animations
+# Dark/Light Theme Enhancement Plan
 
-## Progress
+**Current State:**
 
-- [x] 1. Update constants/theme.ts with music-themed colors (indigo/purple/gold)
-- [x] 2. Install dependencies: react-native-reanimated, react-native-linear-gradient
-- [x] 3. Create components/CDCard.tsx (reusable animated card with disc, gradients, scale anim)
-- [x] 4.  Refactor app/(tabs)/index.tsx: replace renderAvailableCD/renderBorrowedCD with CDCard, update styles
-- [x] 5. Refactor app/(tabs)/borrow.tsx: update renderCD to CDCard, form/button styles
-- [ ] 6. Refactor app/(tabs)/return.tsx: update renderBorrowed to CDCard, button styles
-- [ ] 7. Update stats cards, buttons, forms across files to match new theme/animations
-- [ ] 8. Update app/(tabs)/\_layout.tsx tab colors if needed
-- [ ] 9. Test all functionality: borrow/return/persistence/displays, check animations/shadows
-- [x] Complete
+- Theme hooks (useColorScheme, useThemeColor) and Themed components ready.
+- Hardcoded colors in index.tsx, borrow.tsx, return.tsx styles need replacement with theme colors.
 
-**Next step:** Update theme.ts first (safest, no breaking changes).
+**Information Gathered:**
+
+- index.tsx: statCard rgba(blue), cdCard rgba(blue-dark), borrowedCard rgba(red), overdueText #ef4444.
+- borrow.tsx: cdCard rgba(blue-dark), selectedCard rgba(blue)+border, input rgba(dark), button #1e3a8a white text, selectedContainer rgba(blue).
+- return.tsx: borrowedCard rgba(red), selectedCard border blue, overdueText rgba(red) #ef4444, button #1e3a8a white, selectedContainer rgba(blue).
+- All use simple hooks already (colorScheme, Colors, Themed\*).
+
+**Plan:**
+
+1. Extend constants/theme.ts: Add primary, primaryLight, secondary, error, errorLight, border, cardBg, buttonBg/primary, inputBg.
+2. Update styles in app/(tabs)/index.tsx, borrow.tsx, return.tsx to use these (e.g., backgroundColor: useThemeColor({}, 'primary')) but since StyleSheet static, define dynamic styles with useColorScheme inside components.
+3. Ensure shadows/opacity adapt (keep shadowColor #000 as standard).
+
+**Dependent Files:**
+
+- constants/theme.ts (extend colors)
+- app/(tabs)/index.tsx (dynamic styles for statCard, cdCard etc.)
+- app/(tabs)/borrow.tsx
+- app/(tabs)/return.tsx
+
+**Followup steps:**
+
+1. Edit theme.ts
+2. Refactor styles in screens to dynamic objects using useColorScheme/useThemeColor.
+3. Test with `npx expo start --clear` and toggle device theme.
+
+Approve this plan to proceed? Any specific colors/preferences?

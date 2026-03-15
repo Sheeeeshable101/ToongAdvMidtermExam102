@@ -1,10 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, {
-    createContext,
-    ReactNode,
-    useContext,
-    useEffect,
-    useState,
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
 } from "react";
 
 export interface CD {
@@ -29,6 +29,7 @@ interface CDContextType {
   totalBorrowed: number;
   borrowCD: (cdId: string, borrowerName: string) => Promise<void>;
   returnCD: (borrowedId: string) => Promise<void>;
+  isLoading: boolean;
 }
 
 const CDContext = createContext<CDContextType | undefined>(undefined);
@@ -172,7 +173,15 @@ export const CDProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   return (
     <CDContext.Provider
-      value={{ cds, borrowed, totalIncome, totalBorrowed, borrowCD, returnCD }}
+      value={{
+        cds,
+        borrowed,
+        totalIncome,
+        totalBorrowed,
+        borrowCD,
+        returnCD,
+        isLoading,
+      }}
     >
       {children}
     </CDContext.Provider>
